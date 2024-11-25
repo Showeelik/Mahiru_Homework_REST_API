@@ -1,7 +1,7 @@
 
 [tool.poetry]
 name = "mahiru_homework_rest_api"
-version = "2.0.0"
+version = "2.0.1"
 description = ""
 authors = ["name <email>"]
 readme = "README.md"

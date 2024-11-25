@@ -1,8 +1,9 @@
+from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.conf import settings
 
 from courses.models import Course, Lesson
+
 
 class User(AbstractUser):
     email = models.EmailField(unique=True)
@@ -23,8 +24,8 @@ class User(AbstractUser):
 
 class Payment(models.Model):
     PAYMENT_METHODS = [
-        ('cash', 'Наличные'),
-        ('transfer', 'Перевод на счет'),
+        ("cash", "Наличные"),
+        ("transfer", "Перевод на счет"),
     ]
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="payments")
@@ -36,7 +37,7 @@ class Payment(models.Model):
 
     def __str__(self):
         return f"{self.user.email} - {self.amount} ({self.payment_method})"
-    
+
     class Meta:
         verbose_name = "Оплата"
         verbose_name_plural = "Оплаты"
