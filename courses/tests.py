@@ -1,12 +1,13 @@
-from rest_framework.test import APITestCase
-from rest_framework import status
 from django.contrib.auth import get_user_model
+from rest_framework import status
+from rest_framework.test import APITestCase
 
 from subscriptions.models import Subscription
-from .models import Course, Lesson
 
+from .models import Course
 
 User = get_user_model()
+
 
 class CourseTests(APITestCase):
     def setUp(self):

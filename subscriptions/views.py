@@ -1,9 +1,12 @@
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
-from .models import Subscription
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
 from courses.models import Course
+
+from .models import Subscription
+
 
 class SubscriptionView(APIView):
     permission_classes = [IsAuthenticated]

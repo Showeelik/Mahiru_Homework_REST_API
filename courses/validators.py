@@ -1,5 +1,7 @@
-from django.core.exceptions import ValidationError
 from urllib.parse import urlparse
+
+from django.core.exceptions import ValidationError
+
 
 def youtube_url_validator(value):
     """Валидатор для проверки ссылки на YouTube."""
