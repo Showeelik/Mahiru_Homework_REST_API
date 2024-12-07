@@ -22,4 +22,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("courses.urls")),  # Подключение API для курсов и уроков
     path("api/users/", include("users.urls")),  # Подключение API для пользователей
+    path("api/subscriptions/", include("subscriptions.urls")),
 ]
