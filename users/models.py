@@ -29,14 +29,14 @@ class Payment(models.Model):
     ]
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="payments")
-    date = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     course = models.ForeignKey(Course, on_delete=models.SET_NULL, blank=True, null=True, related_name="payments")
     lesson = models.ForeignKey(Lesson, on_delete=models.SET_NULL, blank=True, null=True, related_name="payments")
     amount = models.DecimalField(max_digits=10, decimal_places=2)
-    payment_method = models.CharField(max_length=10, choices=PAYMENT_METHODS)
+    method = models.CharField(max_length=10, choices=PAYMENT_METHODS)
 
     def __str__(self):
-        return f"{self.user.email} - {self.amount} ({self.payment_method})"
+        return f"{self.user.email} — {self.course or self.lesson} — {self.amount} ({self.method})"
 
     class Meta:
         verbose_name = "Оплата"
