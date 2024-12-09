@@ -4,15 +4,16 @@ from rest_framework.filters import OrderingFilter
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.viewsets import ViewSet
 from rest_framework.views import APIView
+from rest_framework.viewsets import ViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from courses.models import Course
+
 from .models import Payment, User
 from .serializers import PrivateUserSerializer, PublicUserSerializer, UserPaymentSerializer, UserSerializer
-from .services.stripe_service import create_stripe_product, create_stripe_price, create_checkout_session, get_payment_status
-
+from .services.stripe_service import (create_checkout_session, create_stripe_price, create_stripe_product,
+                                      get_payment_status)
 
 
 class CreatePaymentView(APIView):
@@ -28,6 +29,7 @@ class CreatePaymentView(APIView):
 
         return Response({"payment_url": payment_url})
 
+
 class PaymentListView(ListAPIView):
     queryset = Payment.objects.all()
     serializer_class = UserPaymentSerializer
@@ -35,12 +37,14 @@ class PaymentListView(ListAPIView):
     filterset_fields = ["course", "lesson", "method", "created_at"]
     ordering_fields = ["created_at"]
 
+
 class PaymentStatusView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, session_id):
         status = get_payment_status(session_id)
         return Response({"status": status})
+
 
 class UserCreateAPIView(CreateAPIView):
     queryset = User.objects.all()

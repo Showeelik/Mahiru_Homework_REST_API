@@ -1,7 +1,7 @@
 from django.urls import path
 from rest_framework_simplejwt.views import TokenRefreshView
 
-from .views import CustomTokenObtainPairView, PaymentListView, UserCreateAPIView, CreatePaymentView, PaymentStatusView
+from .views import CreatePaymentView, CustomTokenObtainPairView, PaymentListView, PaymentStatusView, UserCreateAPIView
 
 urlpatterns = [
     path("payments/", PaymentListView.as_view(), name="payment-list"),
