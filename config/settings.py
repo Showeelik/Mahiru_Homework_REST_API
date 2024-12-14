@@ -32,6 +32,14 @@ DEBUG = bool(os.getenv("DEBUG"))
 
 ALLOWED_HOSTS = []
 
+# Redis настройки
+CELERY_BROKER_URL = os.getenv('REDIS_URL', 'redis://localhost:6379/0')
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+
+# Настройка таймзоны
+CELERY_TIMEZONE = 'UTC'
+
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
 STRIPE_PUBLIC_KEY = os.getenv("STRIPE_PUBLIC_KEY")
 
@@ -64,6 +72,7 @@ INSTALLED_APPS = [
     "subscriptions",
     "django_filters",
     "drf_yasg",
+    "django_celery_beat",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

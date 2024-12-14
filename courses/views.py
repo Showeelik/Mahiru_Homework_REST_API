@@ -3,6 +3,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from .models import Lesson
+from .tasks import send_course_update_email
 from .paginators import CoursePagination
 from .permissions import IsModerator, IsOwner
 from .serializers import CourseSerializer, LessonSerializer
@@ -12,6 +13,19 @@ class CourseViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = CourseSerializer
     pagination_class = CoursePagination
+
+    def perform_update(self, serializer):
+        """
+        Выполняет обновление курса и вызывает задачу для отправки писем
+        """
+        # Сохраняем обновленный курс
+        course = serializer.save()
+
+        # Получаем список подписчиков на курс
+        subscribers = course.subscriptions.all()  # Связь через ForeignKey или ManyToMany
+        for subscriber in subscribers:
+            # Запускаем задачу для отправки писем
+            send_course_update_email.delay(subscriber.user.email, course.name)
 
     def get_queryset(self):
         return self.request.user.courses.all()
