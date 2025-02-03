@@ -76,6 +76,37 @@ python manage.py loaddata <fixture_name>.json
 ```bash
 python manage.py loaddata payments.json
 ```
+
+---
+
+## Запуск проекта с использованием Docker и Docker Compose
+
+1. Убедитесь, что у вас установлены Docker и Docker Compose.
+2. Соберите и запустите контейнеры:
+    ```sh
+    docker-compose up --build
+    ```
+3. Примените миграции и соберите статические файлы:
+    ```sh
+    docker-compose run web /root/.local/bin/poetry run python manage.py migrate
+    docker-compose run web /root/.local/bin/poetry run python manage.py collectstatic --noinput
+    ```
+4. Откройте браузер и перейдите по адресу `http://localhost:8000` для доступа к приложению.
+
+## Использование Celery
+
+Celery автоматически запускается вместе с Docker Compose. Для проверки статуса задач Celery используйте следующие команды:
+
+```sh
+docker-compose run web /root/.local/bin/poetry run celery -A Mahiru_Homework_REST_API status
+```
+
+Для запуска задач Celery используйте:
+
+```sh
+docker-compose run web /root/.local/bin/poetry run celery -A Mahiru_Homework_REST_API worker --loglevel=info
+```
+
 ---
 
 ## **Структура проекта**
