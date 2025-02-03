@@ -32,6 +32,8 @@ DEBUG = bool(os.getenv("DEBUG"))
 
 ALLOWED_HOSTS = []
 
+STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
+STRIPE_PUBLIC_KEY = os.getenv("STRIPE_PUBLIC_KEY")
 
 # Custom user model
 
@@ -40,8 +42,6 @@ AUTH_USER_MODEL = "users.User"
 LOGIN_REDIRECT_URL = "home"
 
 LOGOUT_REDIRECT_URL = "home"
-
-LOGIN_URL = "login"
 
 
 # email settings
@@ -61,7 +61,9 @@ INSTALLED_APPS = [
     "rest_framework",
     "users",
     "courses",
+    "subscriptions",
     "django_filters",
+    "drf_yasg",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
