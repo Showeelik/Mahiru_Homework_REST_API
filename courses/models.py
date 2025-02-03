@@ -5,6 +5,11 @@ class Course(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название")
     preview = models.ImageField(upload_to="course_previews/", blank=True, null=True, verbose_name="Превью")
     description = models.TextField(verbose_name="Описание")
+    owner = models.ForeignKey(
+        "users.User",
+        on_delete=models.CASCADE,
+        related_name="courses",
+    )
 
     def __str__(self):
         return self.name
@@ -20,6 +25,11 @@ class Lesson(models.Model):
     description = models.TextField(verbose_name="Описание")
     preview = models.ImageField(upload_to="lesson_previews/", blank=True, null=True, verbose_name="Превью")
     video_url = models.URLField(verbose_name="Ссылка на видео")
+    owner = models.ForeignKey(
+        "users.User",
+        on_delete=models.CASCADE,
+        related_name="lessons",
+    )
 
     def __str__(self):
         return self.name
