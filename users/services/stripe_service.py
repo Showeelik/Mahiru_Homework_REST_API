@@ -42,6 +42,7 @@ def create_checkout_session(price_id, success_url, cancel_url):
     )
     return session["url"]
 
+
 def get_payment_status(session_id):
     """
     Проверяет статус платежа.

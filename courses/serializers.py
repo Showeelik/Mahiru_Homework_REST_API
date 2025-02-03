@@ -8,11 +8,10 @@ from .validators import youtube_url_validator
 
 class LessonSerializer(serializers.ModelSerializer):
     video_url = serializers.URLField(validators=[youtube_url_validator])
-    
+
     class Meta:
         model = Lesson
         fields = ["id", "name", "description", "preview", "video_url", "course"]
-
 
 
 class CourseSerializer(serializers.ModelSerializer):
